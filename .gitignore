@@ -1,0 +1,4 @@
+dockershocker
+**/*.tmp
+**/*.swp
+**/*.bak
