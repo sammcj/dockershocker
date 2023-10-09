@@ -27,7 +27,7 @@ const (
 
 var (
 	dockerClient      *client.Client
-	dockerSocketPath  = "tcp://dockerproxy:2375"
+	dockerSocket			string
 	lastAccessed      = make(map[string]time.Time)
 	lastAccessedMutex = &sync.Mutex{} // Mutex for lastAccessed
 	limiter           = rate.NewLimiter(rateLimit, burstLimit)
@@ -44,8 +44,13 @@ type ContainerInfo struct {
 }
 
 func init() {
+	flag.StringVar(&logLevel, "loglevel", "info", "Set log level: debug, info, warn, error")
+	flag.StringVar(&port, "port", "8080", "Set the port to listen on")
+	flag.StringVar(&dockerSocket, "socket", "tcp://dockerproxy:2375", "Set the path to the docker socket (unix://path or tcp://host:port)")
+	flag.Parse()
+
 	var err error
-	dockerClient, err = client.NewClientWithOpts(client.WithHost(dockerSocketPath), client.WithAPIVersionNegotiation())
+	dockerClient, err = client.NewClientWithOpts(client.WithHost(dockerSocket), client.WithAPIVersionNegotiation())
 	if err != nil {
 		log.Fatalf("Error initializing Docker client: %s", err)
 	}
@@ -69,11 +74,6 @@ func init() {
 			{{ end }}
 		</table>
 	`))
-
-	flag.StringVar(&logLevel, "loglevel", "info", "Set log level: debug, info, warn, error")
-	flag.StringVar(&port, "port", "8080", "Set the port to listen on")
-	flag.StringVar(&dockerSocketPath, "socket", "tcp://dockerproxy:2375", "Set the path to the docker socket (unix/tcp)")
-	flag.Parse()
 }
 
 func main() {

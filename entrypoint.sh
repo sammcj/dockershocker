@@ -1,7 +1,10 @@
 #!/usr/bin/env sh
-
 set -e
 
-echo "Starting dockershocker with loglevel ${LOG_LEVEL:-debug} on port ${PORT:-8080} and socket ${DOCKER_SOCKET:-tcp://dockerproxy:2375}"
+DOCKER_SOCKET=${DOCKER_SOCKET:-tcp://dockerproxy:2375}
+PORT=${PORT:-8080}
+LOG_LEVEL=${LOG_LEVEL:-debug}
 
-./dockershocker -loglevel="${LOG_LEVEL:-debug}" -port="${PORT:-8080}" -socket="${DOCKER_SOCKET:-tcp://dockerproxy:2375}"
+echo "Starting dockershocker with loglevel ${LOG_LEVEL} on port ${PORT} and socket ${DOCKER_SOCKET}"
+
+./dockershocker -logLevel="$LOG_LEVEL" -port="$PORT" -dockerSocket="$DOCKER_SOCKET"
