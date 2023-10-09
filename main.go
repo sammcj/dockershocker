@@ -44,9 +44,9 @@ type ContainerInfo struct {
 }
 
 func init() {
-	flag.StringVar(&logLevel, "loglevel", "info", "Set log level: debug, info, warn, error")
+	flag.StringVar(&logLevel, "logLevel", "info", "Set log level: debug, info, warn, error")
 	flag.StringVar(&port, "port", "8080", "Set the port to listen on")
-	flag.StringVar(&dockerSocket, "socket", "tcp://dockerproxy:2375", "Set the path to the docker socket (unix://path or tcp://host:port)")
+	flag.StringVar(&dockerSocket, "dockerSocket", "tcp://dockerproxy:2375", "Set the path to the docker socket (unix://path or tcp://host:port)")
 	flag.Parse()
 
 	var err error
