@@ -1,6 +1,6 @@
 module dockershocker
 
-go 1.21.4
+go 1.21.5
 
 require (
 	github.com/docker/docker v24.0.7+incompatible
