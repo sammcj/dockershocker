@@ -1,10 +1,10 @@
 module dockershocker
 
-go 1.21.8
+go 1.22.1
 
 require (
 	github.com/docker/docker v24.0.9+incompatible
-	golang.org/x/time v0.3.0
+	golang.org/x/time v0.5.0
 )
 
 require (
